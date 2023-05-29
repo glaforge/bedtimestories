@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.google.cloud.devrel.bedtimestories
+testFramework: spock
+sourceLanguage: groovy
+buildTool: gradle
+features: [ annotation-api, app-name, gcp-secrets-manager, gradle, groovy, groovy-application, http-client, jackson-databind, jib, logback, micronaut-build, netty-server, object-storage-gcp, problem-json, reactor, reactor-http-client, readme, rss, shade, spock, yaml ]

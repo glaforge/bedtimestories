@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bed Time Stories — Generative AI with PaLM 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css"/>
+    <link rel="stylesheet" href="styles.css" class="stylesheet">
+    <script type="module"
+            src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
+</head>
+<body>
+<div class="grid">
+    <div>
+        <h1>
+            <sl-icon name="book"></sl-icon>
+            Bedtime Stories
+        </h1>
+        <p>
+            <b>Let Generative AI create cool stories for you and your kids, with the PaLM API!</b>
+        </p>
+        <p>
+            This application is a <a href="https://micronaut.io">Micronaut</a> application,
+            developed with <a href="https://groovy-lang.org">Apache Groovy</a>,
+            deployed on Google <a href="https://cloud.run">Cloud Run</a>, and calling the
+            <a href="https://cloud.google.com/vertex-ai/docs/generative-ai/learn/overview#palm-api">Vertex AI PaLM
+                API</a>.
+        </p>
+    </div>
+    <div>
+        <sl-select id="characterSel"
+                   label="Pick an example character, or invent your own:">
+            <sl-option value="0">a funny little princess with a strong character</sl-option>
+            <sl-option value="1">a young astronaut exploring space</sl-option>
+            <sl-option value="2">a fearless firefighter</sl-option>
+            <sl-option value="3">a cute little cat with a long and silky fur</sl-option>
+            <sl-option value="4">a gentle dragon with a colorful skin</sl-option>
+            <sl-option value="5">a brave knight in a shiny silver armor</sl-option>
+            <sl-option value="6">a clever wizard who uses his magic to help others</sl-option>
+            <sl-option value="7">a curious explorer who travels to far-off lands</sl-option>
+            <sl-option value="8">a mischievous fairy who causes all sorts of trouble</sl-option>
+            <sl-option value="9">a talking animal who is the best friend of a young child</sl-option>
+            <sl-option value="10">a magical creature who grants wishes</sl-option>
+            <sl-option value="11">a time traveler who takes children on adventures to different eras</sl-option>
+            <sl-option value="12">a spy who solves mysteries and saves the day</sl-option>
+            <sl-option value="13">a superhero who fights crime and protects the innocent</sl-option>
+        </sl-select>
+        <div>
+            <sl-textarea id="characterArea">
+
+            </sl-textarea>
+        </div>
+        <div>
+            <sl-select id="settingSel"
+                       label="Pick a setting defining when and where the action takes places, or create your own:">
+                <sl-option value="0">in a big gray castle, centuries ago</sl-option>
+                <sl-option value="1">on a space station orbiting a distant planet, in year 2135</sl-option>
+                <sl-option value="2">in a big bustling city</sl-option>
+                <sl-option value="3">in an enchanted forest</sl-option>
+                <sl-option value="4">in a jungle full of dangerous wild animals</sl-option>
+                <sl-option value="5">in a small village on a quiet island</sl-option>
+                <sl-option value="6">in a busy train station of a futuristic city full of high skyscrapers</sl-option>
+                <sl-option value="7">in a deserted beach, on a far away island in the middle of the ocean</sl-option>
+                <sl-option value="8">in a mysterious cave at the bottom of a mountain</sl-option>
+            </sl-select>
+        </div>
+        <div>
+            <sl-textarea id="settingArea">
+
+            </sl-textarea>
+        </div>
+        <div>
+            <sl-select id="plotSel" label="Pick a possible plot, or roll your own:">
+                <sl-option value="0">her little sister was kidnapped by a nasty old witch</sl-option>
+                <sl-option value="1">the sun is erupting dangerously</sl-option>
+                <sl-option value="2">a shower of comets is setting the town on fire at every corner</sl-option>
+                <sl-option value="3">an evil dog with long ears is barking at all cute animals</sl-option>
+                <sl-option value="4">the baboon king is threatening all animals and stealing their food</sl-option>
+                <sl-option value="5">dangerous asteroids hosting mysterious lifeforms</sl-option>
+                <sl-option value="6">discovery of a secret portal enabling travel to worlds of danger and excitement
+                </sl-option>
+                <sl-option value="7">discovery of a flying superpower</sl-option>
+                <sl-option value="8">a mission to investigate a mysterious object that has appeared in orbit around the
+                    Earth
+                </sl-option>
+                <sl-option value="9">rescue of a cat from a burning building</sl-option>
+                <sl-option value="10">a mission to break the spell that has been cast on her kingdom</sl-option>
+                <sl-option value="11">solving the mystery of a haunted house</sl-option>
+            </sl-select>
+        </div>
+        <div>
+            <sl-textarea id="plotArea">
+
+            </sl-textarea>
+        </div>
+        <div>
+            <sl-button id="generateBtn" variant="primary">
+                <sl-icon name="gear-wide-connected"></sl-icon>
+                Generate story
+            </sl-button>
+        </div>
+        <div>
+            <sl-textarea id="storyArea" rows="20">
+
+            </sl-textarea>
+        </div>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

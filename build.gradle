@@ -1,0 +1,61 @@
+plugins {
+    id("groovy")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.7.9"
+    id("com.google.cloud.tools.jib") version "2.8.0"
+}
+
+version = "0.1"
+group = "com.google.cloud.devrel.bedtimestories"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("io.micronaut.gcp:micronaut-gcp-secret-manager")
+    implementation("io.micronaut.groovy:micronaut-runtime-groovy")
+    implementation("io.micronaut.objectstorage:micronaut-object-storage-gcp")
+    implementation("io.micronaut.problem:micronaut-problem-json")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.reactor:micronaut-reactor")
+    implementation("io.micronaut.reactor:micronaut-reactor-http-client")
+    implementation("io.micronaut.rss:micronaut-rss")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation('com.google.auth:google-auth-library-credentials:1.17.0')
+    compileOnly("io.micronaut:micronaut-http-validation")
+    runtimeOnly("ch.qos.logback:logback-classic")
+}
+
+application {
+    mainClass.set("com.google.cloud.devrel.bedtimestories.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+tasks {
+    jib {
+        from {
+            image = "gcr.io/distroless/java17-debian11"
+        }
+        to {
+            image = "us-central1-docker.pkg.dev/genai-java-demos/containers/bedtimestory:v1"
+        }
+    }
+}
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("spock2")
+    processing {
+        incremental(true)
+        annotations("com.google.cloud.devrel.bedtimestories.*")
+    }
+}
+
+
+

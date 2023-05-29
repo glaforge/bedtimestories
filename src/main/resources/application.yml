@@ -1,0 +1,19 @@
+netty:
+  default:
+    allocator:
+      max-order: 3
+micronaut:
+  router:
+    static-resources:
+      default:
+        paths: classpath:public
+        mapping: /**
+        enabled: true
+  http:
+    client:
+      read-timeout: 25s
+palm:
+  PROJECT_ID: genai-java-demos
+  CLOUD_REGION: us-central1
+  API_ENDPOINT: us-central1-aiplatform.googleapis.com
+  MODEL_ID: text-bison
