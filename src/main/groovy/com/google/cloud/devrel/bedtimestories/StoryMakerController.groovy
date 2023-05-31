@@ -71,11 +71,19 @@ class StoryMakerController {
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .contentType(MediaType.APPLICATION_JSON_TYPE)
 
-
         def predictionResponse = client.toBlocking()
                 .exchange(request, PredictionResponse)
                 .body()
 
-        return predictionResponse.predictions.first().content.split(/\*\*(?:.*)\*\*/)*.trim().grep() as String[]
+        def content = predictionResponse.predictions.first().content
+
+        logger.info("""\
+                character: ${character}
+                setting: ${setting}
+                plot: ${plot}
+            """.stripIndent())
+        logger.info("output: ${content}")
+
+        return content.split(/\*\*(?:.*)\*\*/)*.trim().grep() as String[]
     }
 }

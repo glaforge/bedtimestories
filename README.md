@@ -1,11 +1,31 @@
-## Build
+## Using the Google Cloud Vertex AI PaLM API to create kid stories
 
-```
+This application takes advantage of the PaLM API, in Google Cloud's Vertex AI, to generate kid stories.
+Users select or invent a character, a setting (location, time), and a general plot.
+This information is sent to the PaLM API, via a prompt, that asks for a structured story to be generated.
+The frontend part is using vanilla JavaScript, with the [Shoelace](https://shoelace.style/) web components for the form inputs.
+And the backend is developed with the [Micronaut](https://micronaut.io/) framework, 
+the [Apache Groovy](https://groovy-lang.org/) programming language, and is deployed on [Cloud Run](https://cloud.run/).
+
+![Bed-time stories](bedtimestories.png)
+
+Note: As of this writing, there is no Java client library to access the PaLM API. 
+So this application is calling the REST endpoint directly.
+However, to authenticate to that application, 
+I had to use the Google [Auth client library](https://github.com/googleapis/google-auth-library-java),
+as explained in this [article](https://glaforge.dev/posts/2023/05/30/getting-started-with-the-palm-api-in-the-java-ecosystem/).
+
+## Building and deploying
+
+You'll need to have the Vertex AI API enabled, as well as the various APIs needed by Cloud Run, Cloud Build, and Artifact Registry.
+
 ### Building with Cloud Build
 
 ```bash
 gcloud builds submit -t us-central1-docker.pkg.dev/genai-java-demos/containers/bedtimestories:v1
 ```
+
+Note: change the `genai-java-demos` with your own project ID.
 
 ### Deploying to Cloud Run
 
@@ -13,45 +33,8 @@ gcloud builds submit -t us-central1-docker.pkg.dev/genai-java-demos/containers/b
 gcloud run deploy bedtimestories --image=us-central1-docker.pkg.dev/genai-java-demos/containers/bedtimestories:v1
 ```
 
-## Micronaut 3.9.2 Documentation
-
-- [User Guide](https://docs.micronaut.io/3.9.2/guide/index.html)
-- [API Reference](https://docs.micronaut.io/3.9.2/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/3.9.2/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
+Note: change the `genai-java-demos` with your own project ID.
 
 ---
 
-- [Jib Gradle Plugin](https://plugins.gradle.org/plugin/com.google.cloud.tools.jib)
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-
-## Feature gcp-secrets-manager documentation
-
-- [Micronaut Google Secret Manager documentation](https://micronaut-projects.github.io/micronaut-gcp/latest/guide/#secretManager)
-
-- [https://cloud.google.com/secret-manager](https://cloud.google.com/secret-manager)
-
-## Feature problem-json documentation
-
-- [Micronaut Problem JSON documentation](https://micronaut-projects.github.io/micronaut-problem-json/latest/guide/index.html)
-
-## Feature rss documentation
-
-- [Micronaut RSS Feed documentation](https://micronaut-projects.github.io/micronaut-rss/latest/guide/index.html#whatsNew)
-
-## Feature http-client documentation
-
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
-## Feature reactor documentation
-
-- [Micronaut Reactor documentation](https://micronaut-projects.github.io/micronaut-reactor/snapshot/guide/index.html)
-
-## Feature object-storage-gcp documentation
-
-- [Micronaut Object Storage - GCP documentation](https://micronaut-projects.github.io/micronaut-object-storage/latest/guide/)
-
-- [https://cloud.google.com/storage](https://cloud.google.com/storage)
-
-
+This is not an official Google product.
