@@ -18,6 +18,7 @@ package com.google.cloud.devrel.bedtimestories
 
 import com.google.auth.oauth2.GoogleCredentials
 import groovy.transform.CompileStatic
+import io.micronaut.context.annotation.Value
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.QueryValue
@@ -37,6 +38,19 @@ class StoryMakerController {
 
     @Inject
     private ReactorStreamingHttpClient client;
+
+    @Value('${palm.API_ENDPOINT}')
+    private String ENDPOINT;
+
+    @Value('${palm.CLOUD_REGION}')
+    private String CLOUD_REGION;
+
+    @Value('${palm.MODEL_ID}')
+    private String MODEL_ID;
+
+    @Value('${palm.PROJECT_ID}')
+    private String PROJECT_ID;
+
 
     private static Closure<String> PROMPT = { String character, String setting, String plot ->
         """
@@ -62,9 +76,9 @@ class StoryMakerController {
         def token = credentials.accessToken.tokenValue
 
         def uri = UriBuilder
-                .of("/v1/projects/genai-java-demos/locations/us-central1/publishers/google/models/text-bison:predict")
+                .of("/v1/projects/${PROJECT_ID}/locations/${CLOUD_REGION}/publishers/google/models/${MODEL_ID}:predict")
                 .scheme("https")
-                .host("us-central1-aiplatform.googleapis.com")
+                .host("${CLOUD_REGION}-aiplatform.googleapis.com")
                 .build()
 
         def request = HttpRequest
