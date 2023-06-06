@@ -82,21 +82,18 @@ class StoryMakerController {
                 .build()
 
         def request = HttpRequest
-                .POST(uri, """
-                    {
-                      "instances": [
-                        {
-                          "content": "${PROMPT(character, setting, plot)}"
-                        }
-                      ],
-                      "parameters": {
-                        "temperature": 0.6,
-                        "maxOutputTokens": 1000,
-                        "topP": 0.8,
-                        "topK": 40
-                      }
-                    }
-                """)
+                .POST(uri,
+                        [
+                                instances: [
+                                        content: PROMPT(character, setting, plot)
+                                ],
+                                parameters: [
+                                        temperature: 0.6,
+                                        maxOutputTokens: 1000,
+                                        topP: 0.8,
+                                        topK: 40
+                                ]
+                        ])
                 .bearerAuth(token)
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .contentType(MediaType.APPLICATION_JSON_TYPE)
