@@ -64,7 +64,7 @@ class StoryMakerController {
         - Act 4 : The falling action is that part of the story in which the main part (the climax) has finished and you're heading to the conclusion. This is the calm after the tension of the climax.
         - Act 5 : This is the resolution of the story where conflicts are resolved and loose ends tied up. This is the moment of emotional release for the reader.
         
-        Generate a kid story in 5 acts, where the protagonist is ${character}, where the action takes place ${setting} and ${plot}.
+        Generate a kid story in 5 acts, with around 20 sentences per act, where the protagonist is ${character}, where the action takes place ${setting} and the plot is about ${plot}.
         """.stripIndent()
     }
 
@@ -89,7 +89,7 @@ class StoryMakerController {
                                 ],
                                 parameters: [
                                         temperature: 0.6,
-                                        maxOutputTokens: 1000,
+                                        maxOutputTokens: 8192,
                                         topP: 0.8,
                                         topK: 40
                                 ]

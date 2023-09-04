@@ -4,7 +4,7 @@ COPY gradle gradle
 COPY gradle.properties gradle.properties
 COPY build.gradle settings.gradle gradlew ./
 COPY src src
-RUN ./gradlew shadowJar
+RUN ./gradlew shadowJar --no-daemon
 
 FROM openjdk:17-slim
 WORKDIR /app
