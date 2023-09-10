@@ -17,7 +17,7 @@ micronaut:
             public: true
   http:
     client:
-      read-timeout: 40s
+      read-timeout: 60s
 
 palm:
   PROJECT_ID: genai-java-demos

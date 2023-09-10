@@ -16,8 +16,15 @@
 
 package com.google.cloud.devrel.bedtimestories
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.serde.annotation.Serdeable
 
 @Serdeable
 class SafetyAttributes {
+    @JsonProperty("blocked")
+    boolean blocked
+    @JsonProperty("categories")
+    List<String> categories
+    @JsonProperty("scores")
+    List<Float> scores
 }

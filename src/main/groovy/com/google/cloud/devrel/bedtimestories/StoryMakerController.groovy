@@ -103,14 +103,21 @@ class StoryMakerController {
                 .body()
 
         def content = predictionResponse.predictions.first().content
+        def safetyAttributes = predictionResponse.predictions.first().safetyAttributes
+        def scores = [safetyAttributes.categories, safetyAttributes.scores].transpose().collect { attrScore -> (attrScore as List).join(': ') }
 
         logger.info("""\
                 character: ${character}
                 setting: ${setting}
                 plot: ${plot}
             """.stripIndent())
+        logger.info("safety: blocked=${safetyAttributes.blocked}, scores=${scores}")
         logger.info("output: ${content}")
 
-        return content.split(/\*\*(?:.*)\*\*/)*.trim().grep() as String[]
+        if (safetyAttributes.blocked) {
+            return ["Text generation has been blocked by Vertex AI", scores] as String[]
+        } else {
+            return content.split(/\*\*(?:.*)\*\*/)*.trim().grep() as String[]
+        }
     }
 }
