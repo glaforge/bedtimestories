@@ -18,6 +18,12 @@ micronaut:
   http:
     client:
       read-timeout: 60s
+      event-loop-group: client
+  netty:
+    event-loops:
+      client:
+        num-threads: 8
+        prefer-native-transport: true
 
 palm:
   PROJECT_ID: genai-java-demos
