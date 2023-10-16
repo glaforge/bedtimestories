@@ -18,11 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const charSel = document.getElementById('characterSel');
     const settSel = document.getElementById('settingSel');
     const plotSel = document.getElementById('plotSel');
+    const languageSel = document.getElementById('languageSel');
 
     const charArea = document.getElementById('characterArea');
     const settArea = document.getElementById('settingArea');
     const plotArea = document.getElementById('plotArea');
     const storyArea = document.getElementById('storyArea');
+    const languageArea = document.getElementById('languageArea');
 
     const generateBtn = document.getElementById('generateBtn');
 
@@ -38,13 +40,18 @@ document.addEventListener("DOMContentLoaded", function () {
         plotArea.value = plotSel.getAllOptions()[plotSel.value].getTextLabel();
     });
 
+    languageSel.addEventListener('sl-change', (e) => {
+        languageArea.value = languageSel.getAllOptions()[languageSel.value].getTextLabel();
+    });
+
     generateBtn.addEventListener('click', async(e) => {
         generateBtn.loading = true;
         generateBtn.disabled = true;
         const resp = await fetch('/story/generate?' + new URLSearchParams({
             character: charArea.value,
             setting: settArea.value,
-            plot: plotArea.value
+            plot: plotArea.value,
+            language: languageArea.value
         }));
         const json = await resp.json();
         storyArea.value = json.join('\n\n');
