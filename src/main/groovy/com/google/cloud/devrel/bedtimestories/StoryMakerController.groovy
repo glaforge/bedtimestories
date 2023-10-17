@@ -52,7 +52,7 @@ class StoryMakerController {
     private String PROJECT_ID;
 
 
-    private static Closure<String> PROMPT = { String character, String setting, String plot ->
+    private static Closure<String> PROMPT = { String character, String setting, String plot, String language ->
         """
         You are a creative and passionate story teller for kids. 
         Kids love hearing about the stories you invent.
@@ -64,12 +64,12 @@ class StoryMakerController {
         - Act 4 : The falling action is that part of the story in which the main part (the climax) has finished and you're heading to the conclusion. This is the calm after the tension of the climax.
         - Act 5 : This is the resolution of the story where conflicts are resolved and loose ends tied up. This is the moment of emotional release for the reader.
         
-        Generate a kid story in 5 acts, with around 20 sentences per act, where the protagonist is ${character}, where the action takes place ${setting} and the plot is about ${plot}.
+        Generate a kid story in ${language} language in 5 acts, with around 20 sentences per act, where the protagonist is ${character}, where the action takes place ${setting} and the plot is about ${plot}.
         """.stripIndent()
     }
 
     @Get("/generate")
-    String[] makeStory(@QueryValue String character, @QueryValue String setting, @QueryValue String plot) {
+    String[] makeStory(@QueryValue String character, @QueryValue String setting, @QueryValue String plot, @QueryValue String language) {
         def credentials = GoogleCredentials.applicationDefault
                 .createScoped('https://www.googleapis.com/auth/cloud-platform')
         credentials.refreshIfExpired()
@@ -85,7 +85,7 @@ class StoryMakerController {
                 .POST(uri,
                         [
                                 instances: [
-                                        content: PROMPT(character, setting, plot)
+                                        content: PROMPT(character, setting, plot, language)
                                 ],
                                 parameters: [
                                         temperature: 0.6,
